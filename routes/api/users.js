@@ -1,11 +1,10 @@
 const express = require("express");
-const router = express.Router();
+const { createUser } = require("../../controllers/users");
 
-//  @route  GET api/users
-//  @desc   Test route
-//  @access Public
-router.get("/", (req, res) => {
-  res.send("Users test route");
-});
+const User = require("../../models/User");
+
+const router = express.Router({ mergeParams: true });
+
+router.route("/").post(createUser);
 
 module.exports = router;

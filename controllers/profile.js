@@ -1,4 +1,5 @@
 const normalize = require("normalize-url");
+const request = require("request");
 const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../middleware/async");
 
@@ -255,5 +256,37 @@ exports.deleteEducation = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     success: true,
     data: profile,
+  });
+});
+
+//  @route  Get api/profile/github/:username
+//  @desc   Get user repos from Git Hub
+//  @access Public
+
+exports.getGitHubRepos = asyncHandler(async (req, res, next) => {
+  const options = {
+    uri: `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc&client_id=${process.env.GH_CLIENT_ID}&client_secret=${process.env.GH_SECRET}`,
+    method: "GET",
+    headers: {
+      "user-agent": "node-js",
+    },
+  };
+
+  request(options, (error, response, body) => {
+    if (error) console.log(error);
+
+    if (response.statusCode !== 200) {
+      return next(
+        new ErrorResponse(
+          `No Git Hub profile found for user ${req.params.username}`,
+          404
+        )
+      );
+    }
+
+    res.status(200).json({
+      success: true,
+      data: JSON.parse(body),
+    });
   });
 });

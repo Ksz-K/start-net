@@ -6,6 +6,9 @@ const {
   getProfileByID,
   deleteProfilenUser,
   addExperience,
+  deleteExperience,
+  addEducation,
+  deleteEducation,
 } = require("../../controllers/profile");
 
 const router = express.Router({ mergeParams: true });
@@ -28,5 +31,8 @@ router
 router.get("/me", protect, getProfile);
 router.get("/user/:user_id", getProfileByID);
 router.put("/experience", protect, addExperience);
+router.delete("/experience/:exp_id", protect, deleteExperience);
+router.put("/education", protect, addEducation);
+router.delete("/education/:edu_id", protect, deleteEducation);
 
 module.exports = router;

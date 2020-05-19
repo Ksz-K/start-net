@@ -160,3 +160,100 @@ exports.addExperience = asyncHandler(async (req, res, next) => {
     data: profile,
   });
 });
+
+//  @route  Delete api/profile/experience/:exp_id
+//  @desc   Delete experience from profile
+//  @access Private
+
+exports.deleteExperience = asyncHandler(async (req, res, next) => {
+  const profile = await Profile.findOne({ user: req.user.id });
+
+  //Get remove index
+  const removeIndex = profile.experience
+    .map((item) => item.id)
+    .indexOf(req.params.exp_id);
+
+  if (removeIndex === -1) {
+    return next(
+      new ErrorResponse(
+        `There is no experience array of ID ${req.params.exp_id}`,
+        404
+      )
+    );
+  }
+  profile.experience.splice(removeIndex, 1);
+
+  await profile.save();
+
+  res.status(200).json({
+    success: true,
+    data: profile,
+  });
+});
+
+//  @route  PUT api/profile/education
+//  @desc   Add profile education
+//  @access Private
+
+exports.addEducation = asyncHandler(async (req, res, next) => {
+  const {
+    school,
+    degree,
+    fieldofstudy,
+    from,
+    to,
+    current,
+    description,
+  } = req.body;
+
+  const newEdu = {
+    school,
+    degree,
+    fieldofstudy,
+    from,
+    to,
+    current,
+    description,
+  };
+
+  const profile = await Profile.findOne({ user: req.user.id });
+
+  profile.education.unshift(newEdu);
+
+  await profile.save();
+
+  res.status(200).json({
+    success: true,
+    data: profile,
+  });
+});
+
+//  @route  Delete api/profile/education/:edu_id
+//  @desc   Delete education from profile
+//  @access Private
+
+exports.deleteEducation = asyncHandler(async (req, res, next) => {
+  const profile = await Profile.findOne({ user: req.user.id });
+
+  //Get remove index
+  const removeIndex = profile.education
+    .map((item) => item.id)
+    .indexOf(req.params.edu_id);
+
+  if (removeIndex === -1) {
+    return next(
+      new ErrorResponse(
+        `There is no education array of ID ${req.params.edu_id}`,
+        404
+      )
+    );
+  }
+  profile.education.splice(removeIndex, 1);
+
+  await profile.save();
+
+  res.status(200).json({
+    success: true,
+    data: profile,
+  });
+});

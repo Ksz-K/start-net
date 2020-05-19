@@ -1,11 +1,11 @@
 const express = require("express");
-const router = express.Router();
+const { getMe, login } = require("../../controllers/auth");
 
-//  @route  GET api/auth
-//  @desc   Test route
-//  @access Public
-router.get("/", (req, res) => {
-  res.send("Auth test route");
-});
+const router = express.Router({ mergeParams: true });
+
+const { protect } = require("../../middleware/auth");
+
+router.get("/", protect, getMe);
+router.post("/", login);
 
 module.exports = router;

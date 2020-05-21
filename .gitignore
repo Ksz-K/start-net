@@ -1,2 +1,5 @@
 node_modules/
 config/config.env
+npm-debug.log
+.DS_Store
+/*.env

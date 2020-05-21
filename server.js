@@ -45,7 +45,7 @@ app.use(hpp());
 app.use(cors());
 
 //Set static folser
-app.use(express.static(path.join(__dirname, "public")));
+//app.use(express.static(path.join(__dirname, "public")));
 
 //Define Routes
 app.use("/api/auth", require("./routes/api/auth"));
@@ -54,6 +54,17 @@ app.use("/api/users", require("./routes/api/users"));
 app.use("/api/posts", require("./routes/api/posts"));
 
 app.use(errorHandler);
+
+if (process.env.NODE_ENV === "production") {
+  //Set static folder
+  //app.use(express.static("client/build"));
+
+  app.get("*", (req, res) => {
+    res.json({
+      msg: "API server dead end",
+    });
+  });
+}
 
 const PORT = process.env.PORT || 5000;
 

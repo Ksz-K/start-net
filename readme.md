@@ -1,4 +1,4 @@
-# DevCamper API
+# StartNet API
 
 > Backend API for StartNet application, which is a web developer social network application
 

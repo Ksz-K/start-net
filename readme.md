@@ -26,7 +26,7 @@ npm start
 
 The API is live at [StartNet](https://start-net.herokuapp.com)
 
-Extensive documentation with examples [here](https://start-net.herokuapp.com/index.html)
+Extensive documentation with examples [here](https://documenter.getpostman.com/view/9568011/Szt79qUN?version=latest)
 
 - Version: 1.0.0
 - License: MIT

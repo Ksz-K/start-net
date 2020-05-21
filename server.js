@@ -1,6 +1,13 @@
 const path = require("path");
 const express = require("express");
 const dotenv = require("dotenv");
+const mongoSanitize = require("express-mongo-sanitize");
+const helmet = require("helmet");
+const xss = require("xss-clean");
+const rateLimit = require("express-rate-limit");
+const hpp = require("hpp");
+const cors = require("cors");
+
 const errorHandler = require("./middleware/error");
 const connectDB = require("./config/db");
 
@@ -13,11 +20,32 @@ dotenv.config({ path: "./config/config.env" });
 connectDB();
 
 //Init Middleware
-app.use(express.json({ extended: false }));
+app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("API is up");
+//Sanitize data
+app.use(mongoSanitize());
+
+//Set security headers
+app.use(helmet());
+
+//Prevent cross-site-scripting attack
+app.use(xss());
+
+//Rate limiting
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 1000,
+  max: 100,
 });
+app.use(limiter);
+
+//Prevent http param pollution
+app.use(hpp());
+
+//Enable CORS
+app.use(cors());
+
+//Set static folser
+app.use(express.static(path.join(__dirname, "public")));
 
 //Define Routes
 app.use("/api/auth", require("./routes/api/auth"));

@@ -28,7 +28,7 @@ app.use(mongoSanitize());
 //Set security headers
 app.use(helmet());
 
-//Prevent cross-site-scripting attack
+//Prevent cross-site-scripting attack(xss)
 app.use(xss());
 
 //Rate limiting

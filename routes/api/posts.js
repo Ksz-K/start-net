@@ -1,11 +1,22 @@
 const express = require("express");
-const router = express.Router();
 
-//  @route  GET api/posts
-//  @desc   Test route
-//  @access Public
-router.get("/", (req, res) => {
-  res.send("Posts test route");
-});
+const {
+  createPost,
+  getAllPosts,
+  getPostByID,
+  deletePostByID,
+} = require("../../controllers/posts");
+
+const router = express.Router({ mergeParams: true });
+
+const advancedResults = require("../../middleware/advancedResults");
+const { protect } = require("../../middleware/auth");
+
+router
+  .route("/")
+  .post(protect, createPost)
+  .get(advancedResults(Post), protect, getAllPosts);
+
+router.route("/:id").get(protect, getPostByID).delete(protect, deletePostByID);
 
 module.exports = router;

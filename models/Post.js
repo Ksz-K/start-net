@@ -7,7 +7,7 @@ const PostSchema = new mongoose.Schema({
   },
   text: {
     type: String,
-    required: [true, "Post title cannot be empty"],
+    required: [true, "Post cannot be empty"],
   },
   name: {
     type: String,
@@ -18,7 +18,7 @@ const PostSchema = new mongoose.Schema({
   likes: [
     {
       user: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User",
       },
     },
@@ -26,12 +26,12 @@ const PostSchema = new mongoose.Schema({
   comments: [
     {
       user: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User",
       },
       text: {
         type: String,
-        required: [true, "Post cannot be empty"],
+        required: [true, "Comment cannot be empty"],
       },
       name: {
         type: String,

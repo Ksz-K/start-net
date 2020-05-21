@@ -13,7 +13,6 @@ const {
 } = require("../../controllers/profile");
 
 const router = express.Router({ mergeParams: true });
-const Profile = require("../../models/Profile");
 
 const advancedResults = require("../../middleware/advancedResults");
 const { protect } = require("../../middleware/auth");

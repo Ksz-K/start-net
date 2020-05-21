@@ -24,7 +24,7 @@ npm start
 
 ## Demo
 
-The API is live at [StartNet](https://start-net.herokuapp.com)
+The API is live at [StartNet](https://startnet-back.herokuapp.com/)
 
 Extensive documentation with examples [here](https://documenter.getpostman.com/view/9568011/Szt79qUN?version=latest)
 

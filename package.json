@@ -27,5 +27,5 @@
     "normalize-url": "^5.0.0",
     "request": "^2.88.2",
     "xss-clean": "^0.1.1"
-  
+  }
 }

@@ -1,6 +1,6 @@
 const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../middleware/async");
-const Post = require("../models/post");
+const Post = require("../models/Post");
 
 //@desc     Create a post
 //@route    POST /api/posts

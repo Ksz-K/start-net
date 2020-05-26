@@ -59,6 +59,9 @@ exports.profile = asyncHandler(async (req, res, next) => {
     githubusername,
   };
 
+  if (!status) {
+    return next(new ErrorResponse(`Status is required`, 500));
+  }
   // Build social object and add to profileFields
   const socialfields = { youtube, twitter, instagram, linkedin, facebook };
 

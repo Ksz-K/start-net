@@ -17,10 +17,12 @@ const ProfileSchema = new mongoose.Schema({
   status: {
     type: String,
     required: [true, "Status is required"],
+    minlength: 2,
   },
   skills: {
     type: [String],
     required: [true, "Skills set is required"],
+    minlength: 2,
   },
   bio: {
     type: String,

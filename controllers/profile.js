@@ -5,6 +5,7 @@ const asyncHandler = require("../middleware/async");
 
 const Profile = require("../models/Profile");
 const User = require("../models/User");
+const Post = require("../models/Post");
 
 //  @route  GET api/profile/me
 //  @desc   Get current user profile
@@ -118,7 +119,8 @@ exports.getProfileByID = asyncHandler(async (req, res, next) => {
 //  @access Private
 
 exports.deleteProfilenUser = asyncHandler(async (req, res, next) => {
-  // @todo - remove users posts
+  // Remove user posts
+  await Post.deleteMany({ user: req.user.id });
 
   //Remove profile
   await Profile.findOneAndRemove({
